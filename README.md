@@ -1,5 +1,9 @@
 # code-to-docs
 
+<p align="center">
+  <img src="assets/code-to-docs.png" alt="Code to Docs" width="600" />
+</p>
+
 A Claude Code skill that generates and updates documentation from an existing codebase.
 
 ## What it generates
