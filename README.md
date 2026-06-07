@@ -4,6 +4,13 @@
   <img src="assets/code-to-docs.png" alt="Code to Docs" width="600" />
 </p>
 
+<p align="center">
+  <a href="https://github.com/nidhal-saadaoui/code-to-docs-skill/releases"><img src="https://img.shields.io/github/v/release/nidhal-saadaoui/code-to-docs-skill?style=for-the-badge&color=blue" alt="GitHub Release"></a>
+  <img src="https://img.shields.io/badge/subcommands-7-orange?style=for-the-badge" alt="7 Subcommands">
+  <img src="https://img.shields.io/badge/stacks-10-green?style=for-the-badge" alt="10 Stacks">
+  <img src="https://img.shields.io/github/license/nidhal-saadaoui/code-to-docs-skill?style=for-the-badge" alt="License">
+</p>
+
 A Claude Code skill that generates and updates documentation from an existing codebase.
 
 ## What it generates
@@ -20,10 +27,14 @@ A Claude Code skill that generates and updates documentation from an existing co
 
 ## Installation
 
-Copy this folder into your Claude Code skills directory:
+```bash
+git clone https://github.com/nidhal-saadaoui/code-to-docs-skill.git ~/.claude/skills/code-to-docs
+```
+
+To update to the latest version:
 
 ```bash
-cp -r code-to-docs-skill ~/.claude/skills/code-to-docs
+cd ~/.claude/skills/code-to-docs && git pull
 ```
 
 Then invoke it in any project:
