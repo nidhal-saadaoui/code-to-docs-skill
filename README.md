@@ -72,6 +72,16 @@ code-to-docs/
     └── evals.json             — 12 test cases covering all subcommands and output options
 ```
 
+## Example output
+
+The [`preview/`](preview/) directory contains a complete set of docs generated for a fictional project — showing exactly what each subcommand produces:
+
+- [README.md](preview/README.md)
+- [ARCHITECTURE.md](preview/ARCHITECTURE.md) — with Mermaid component diagram
+- [docs/api.md](preview/docs/api.md) — endpoint reference with request/response examples
+- [ONBOARDING.md](preview/ONBOARDING.md) — setup, test commands, writing a test
+- [docs/adr/](preview/docs/adr/) — three Architecture Decision Records
+
 ## Requirements
 
 Claude Code with access to `Bash`, `Read`, `Write`, and `Edit` tools. No other dependencies.
