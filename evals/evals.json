@@ -1,0 +1,174 @@
+{
+  "skill_name": "code-to-docs",
+  "evals": [
+    {
+      "id": "readme-fresh-python-app",
+      "prompt": "Write a README for this project.",
+      "context": "Python FastAPI project with docker-compose.yml, no existing README.",
+      "assertions": [
+        "Output file is README.md written to the repo root",
+        "Contains a one-line description of what the project does",
+        "Contains a Quick Start section with at least one runnable command",
+        "Uses actual commands from the codebase (not generic 'pip install myapp')",
+        "Does not mention Neo4j, Kubernetes, or other infrastructure not present in the project",
+        "Does not contain empty sections"
+      ]
+    },
+    {
+      "id": "readme-partial-extend",
+      "prompt": "Update the README for this project.",
+      "context": "Scala Maven library with a README that has API usage examples but no build or test instructions.",
+      "assertions": [
+        "Existing API examples are preserved unchanged",
+        "A Build section is added with the correct mvn command",
+        "A Testing section is added with the correct mvn test command",
+        "The file is edited (not fully rewritten)",
+        "No sections are duplicated"
+      ]
+    },
+    {
+      "id": "readme-contradiction-stop",
+      "prompt": "Generate a README for this project.",
+      "context": "Project whose README says 'Neo4j' but the code uses SQLite (aiosqlite). Multiple sections contradict the code.",
+      "assertions": [
+        "Skill does NOT write a new README before asking the user",
+        "Skill surfaces the specific contradictions (Neo4j vs SQLite) as questions",
+        "Questions are batched into a single message (not one at a time)",
+        "No more than 3 questions are asked"
+      ]
+    },
+    {
+      "id": "arch-fresh-multistack",
+      "prompt": "Generate an architecture doc.",
+      "context": "Full-stack project with Python backend, React/Vite frontend, and Docker Compose.",
+      "assertions": [
+        "Output file is ARCHITECTURE.md written to the repo root",
+        "Contains a Mermaid diagram with both backend and frontend as distinct nodes",
+        "Describes both stacks — not just one",
+        "Contains a data flow section showing a request moving through the system",
+        "Does not fabricate components not present in the code"
+      ]
+    },
+    {
+      "id": "onboard-multistack",
+      "prompt": "Write an onboarding guide for this project.",
+      "context": "Python + TypeScript project with a start.sh launcher, .github/workflows/ci.yml, and no existing ONBOARDING.md.",
+      "assertions": [
+        "Output file is ONBOARDING.md",
+        "Prerequisites section lists both Python and Node.js with version numbers sourced from CI config",
+        "Setup section references start.sh rather than duplicating its steps manually",
+        "Running tests section includes single-test commands for both stacks",
+        "Writing a new test section describes the actual fixture pattern found in the test files",
+        "Common issues section contains at least one real failure mode (not invented)"
+      ]
+    },
+    {
+      "id": "deployment-docker-no-rollback",
+      "prompt": "Write a deployment guide.",
+      "context": "Python app with docker-compose.yml (dev and prod profiles), no Kubernetes, no CI deploy job, no image registry configured.",
+      "assertions": [
+        "Output file is DEPLOYMENT.md",
+        "Documents both the dev and prod compose profiles with the correct commands",
+        "Environment variables table is present with Required/Default columns",
+        "Health check section documents the /health endpoint",
+        "Rollback section is present and provides the git-based fallback pattern (not left empty)",
+        "Does not mention Kubernetes, Helm, or other infrastructure not present"
+      ]
+    },
+    {
+      "id": "api-rest-inferred",
+      "prompt": "Generate API documentation for this project.",
+      "context": "Python FastAPI project with no JSDoc or docstrings on route handlers. Routes are in routes.py with Pydantic models in models.py.",
+      "assertions": [
+        "Output file is docs/api.md",
+        "Contains an Authentication section describing the auth mechanism",
+        "Each endpoint has Method, Path, and Description",
+        "At least one endpoint includes a sample response JSON",
+        "Does not document internal helpers or private functions",
+        "Does not fabricate endpoints not present in the routes file"
+      ]
+    },
+    {
+      "id": "update-feature-branch",
+      "prompt": "Update the docs for my new feature.",
+      "context": "Feature branch added: (1) POST /users/reset-password route in routes.py, (2) EMAIL_SERVICE_URL env var in config.py. Existing docs/api.md and DEPLOYMENT.md are present. README.md exists but no user-facing behavior changed.",
+      "assertions": [
+        "Skill runs git diff main...HEAD --name-only before reading any source files",
+        "Only docs/api.md and DEPLOYMENT.md are edited — README.md is not touched",
+        "POST /users/reset-password is added to docs/api.md",
+        "EMAIL_SERVICE_URL is added to the env vars table in DEPLOYMENT.md",
+        "No existing content in either doc is removed or rewritten",
+        "Report names exactly which sections were updated"
+      ]
+    },
+    {
+      "id": "update-custom-output-dir",
+      "prompt": "Generate a README and put it in the docs/ folder.",
+      "context": "Python FastAPI project, no existing docs/. User explicitly said 'put it in docs/'.",
+      "assertions": [
+        "Output file is docs/README.md — not README.md at the repo root",
+        "docs/ directory is created if it does not exist",
+        "Content follows the same README quality rules as the readme subcommand",
+        "No file is written to the repo root"
+      ]
+    },
+    {
+      "id": "output-wiki-format",
+      "prompt": "Write an architecture doc and an API reference for our GitHub wiki.",
+      "context": "Node.js/Express project with a REST API. User said 'for our GitHub wiki'.",
+      "assertions": [
+        "Output filenames are capitalised and flat: Architecture.md and API-Reference.md (not docs/api.md)",
+        "Internal cross-references use [[Page Name]] syntax, not markdown links",
+        "No YAML front matter in either file",
+        "Mermaid diagram is still present in Architecture.md",
+        "Content sections are otherwise identical to what the arch and api subcommands would produce"
+      ]
+    },
+    {
+      "id": "update-no-existing-docs",
+      "prompt": "Update the docs for my new feature.",
+      "context": "Feature branch changed routes.py (new endpoint). No docs/api.md exists yet.",
+      "assertions": [
+        "Skill does not create docs/api.md as part of the update pass",
+        "Skill tells the user docs/api.md is missing and suggests running /code-to-docs api first",
+        "No other files are created or edited"
+      ]
+    },
+    {
+      "id": "adr-fresh-surprising-choice",
+      "prompt": "Write ADRs for this project.",
+      "context": "Python FastAPI project using Redis as the primary data store (no relational DB), SQLite for audit logs, and Celery for background jobs. No existing docs/adr/ directory.",
+      "assertions": [
+        "Output directory is docs/adr/ with numbered files (e.g. 001-*.md, 002-*.md)",
+        "Each file follows the format: Status / Context / Decision / Consequences",
+        "Redis-as-primary-store ADR includes a clarifying question before writing (surprising choice)",
+        "PostgreSQL or other obvious-default choices are NOT questioned",
+        "Questions are batched in a single message, at most 5 total",
+        "Context section uses the placeholder pattern when rationale cannot be inferred",
+        "Does not produce more than 8 ADRs total",
+        "Does not document naming conventions or dependency versions as ADRs"
+      ]
+    },
+    {
+      "id": "adr-existing-stale",
+      "prompt": "Write ADRs for this project.",
+      "context": "Project with docs/adr/001-use-mongodb.md (status: accepted) but the codebase now uses PostgreSQL via SQLAlchemy. No other ADRs exist.",
+      "assertions": [
+        "Skill reads existing ADRs before writing anything",
+        "Creates a new ADR (e.g. 002-migrate-to-postgresql.md) that supersedes ADR-001",
+        "Updates the status field of ADR-001 to 'superseded by ADR-002'",
+        "Does not delete or fully rewrite ADR-001"
+      ]
+    },
+    {
+      "id": "step35-cap",
+      "prompt": "Document the architecture of this project.",
+      "context": "Large codebase with 10+ architectural decisions that can't be inferred from code alone.",
+      "assertions": [
+        "Skill asks at most 3 clarifying questions before writing",
+        "Questions are batched into a single message",
+        "Remaining gaps are noted inline in the document rather than asked as additional questions"
+      ]
+    }
+  ]
+}
