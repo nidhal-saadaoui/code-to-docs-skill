@@ -161,6 +161,34 @@
       ]
     },
     {
+      "id": "glossary-domain-model",
+      "prompt": "Write a glossary for this project.",
+      "context": "E-commerce Python/Django project with Order, OrderLine, Customer, Lead models. OrderStatus enum with PENDING/CONFIRMED/SHIPPED/DELIVERED/CANCELLED. A GRACE_PERIOD_DAYS = 14 constant in billing.py. Both 'user' and 'customer' appear in different modules.",
+      "assertions": [
+        "Output file is GLOSSARY.md at the repo root",
+        "Entries are alphabetical",
+        "Order entry documents all state transitions from the enum",
+        "Synonym conflict between 'user' and 'customer' is documented with canonical term stated",
+        "GRACE_PERIOD_DAYS is documented with its value and a question if the business meaning is unclear",
+        "Does not define 'API', 'HTTP', 'Django', or other framework/generic terms",
+        "Does not document created_at, updated_at, or id fields"
+      ]
+    },
+    {
+      "id": "userguide-web-app-multirole",
+      "prompt": "Write a user guide for this project.",
+      "context": "FastAPI + React SaaS app with two roles: admin (manages users, views reports) and analyst (runs queries, exports data). No existing user guide.",
+      "assertions": [
+        "Skill asks at least: who is the target audience, what is the primary workflow, are there multiple roles — before writing",
+        "Output file is docs/user-guide.md",
+        "Guide is structured with separate sections for admin and analyst roles",
+        "Written in plain language with no class names, route paths, or SQL",
+        "UI element names are bolded",
+        "Contains screenshot placeholders where visuals would help",
+        "Does not include deployment, database, or infrastructure details"
+      ]
+    },
+    {
       "id": "data-dbt-project",
       "prompt": "Document the data model for this project.",
       "context": "dbt project with sources.yml (Postgres orders and customers tables), models/staging/ (stg_orders.sql, stg_customers.sql), models/marts/ (orders_daily.sql, customer_ltv.sql), schema.yml files with column descriptions and not_null tests. Great Expectations suite for stg_orders.",

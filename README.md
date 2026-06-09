@@ -26,6 +26,8 @@ A Claude Code skill that generates and updates documentation from an existing co
 | `update`     | edits existing docs in place  | Incremental update scoped to the current feature branch |
 | `testing`    | `TESTING.md`                  | Test strategy, layers, mocking patterns, coverage, CI   |
 | `data`       | `docs/data.md`                | Data model, schema, lineage diagram, data quality       |
+| `glossary`   | `GLOSSARY.md`                 | Domain terms, state machines, synonyms, business rules  |
+| `userguide`  | `docs/user-guide.md`          | Product guide written for end users or operators        |
 
 ## Installation
 
@@ -86,9 +88,11 @@ code-to-docs/
 │   ├── adr-guide.md           — ADR format, decision detection, and rationale handling
 │   ├── update-guide.md        — git-diff-scoped incremental update workflow
 │   ├── testing-guide.md       — test strategy, layers, mocking patterns, coverage, CI
-│   └── data-guide.md          — data model, dbt lineage, schema, and data quality docs
+│   ├── data-guide.md          — data model, dbt lineage, schema, and data quality docs
+│   ├── glossary-guide.md      — domain terms, state machines, synonyms, business rules
+│   └── userguide-guide.md     — user-facing product guide for end users or operators
 └── evals/
-    └── evals.json             — 15 test cases covering all subcommands and output options
+    └── evals.json             — 17 test cases covering all subcommands and output options
 ```
 
 ## Example output

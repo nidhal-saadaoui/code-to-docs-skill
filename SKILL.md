@@ -1,6 +1,6 @@
 ---
 name: code-to-docs
-description: Generate or update documentation from a codebase — README, architecture, API reference, onboarding guide, deployment guide, ADRs, testing guide, or data model docs. Use whenever the user wants docs written, updated, or generated from code — including casual requests like "document this", "I need docs", "document my code", "this project has no README", "write some docs", "explain the architecture", "write ADRs", "document the test strategy", "document the data model", "document the schema", "help onboard a new dev", "I finished a feature, update the docs", or "what does this project do."
+description: Generate or update documentation from a codebase — README, architecture, API reference, onboarding guide, deployment guide, ADRs, testing guide, data model docs, glossary, or user guide. Use whenever the user wants docs written, updated, or generated from code — including casual requests like "document this", "I need docs", "document my code", "this project has no README", "write some docs", "explain the architecture", "write ADRs", "document the test strategy", "document the data model", "document the schema", "write a glossary", "what do these terms mean", "write a user guide", "explain how to use the app", "help onboard a new dev", "I finished a feature, update the docs", or "what does this project do."
 ---
 
 # Code-to-Docs
@@ -20,6 +20,8 @@ Generate specific documentation files from an existing codebase using only the t
 | `update`     | Edits existing docs to reflect changes on the current branch   |
 | `testing`    | `TESTING.md` — test strategy, layers, patterns, mocking, CI    |
 | `data`       | `docs/data.md` — data model, schema, lineage, data quality      |
+| `glossary`   | `GLOSSARY.md` — domain terms, states, synonyms, business rules  |
+| `userguide`  | `docs/user-guide.md` — product guide for end users or operators |
 
 If no subcommand is given, ask which doc type the user wants before proceeding.
 
@@ -75,6 +77,8 @@ Read the reference file that matches the requested doc type:
 | `update`     | `references/update-guide.md`        |
 | `testing`    | `references/testing-guide.md`       |
 | `data`       | `references/data-guide.md`          |
+| `glossary`   | `references/glossary-guide.md`      |
+| `userguide`  | `references/userguide-guide.md`     |
 
 Each guide contains stack-specific section templates and quality rules. Read it before exploring the codebase.
 
@@ -158,6 +162,8 @@ If the user says "just document what you can see" or similar, skip the questions
 | `update`     | Not applicable — scope is determined by `git diff`, not architectural ambiguity     |
 | `testing`    | Mocking boundary rationale, intentional coverage gaps, why a layer is structured as it is |
 | `data`       | Grain of a table, why a model is materialized a certain way, source system semantics       |
+| `glossary`   | Ambiguous abbreviations, synonyms that coexist, business rule behind a constant            |
+| `userguide`  | Target audience, primary workflow, user roles — always ask before writing                  |
 
 ### Step 4 — Write the documentation
 
@@ -173,6 +179,8 @@ Default output locations:
 - `update` → edits existing files in place; does not create new doc files
 - `TESTING.md` → repo root
 - `docs/data.md` → create `docs/` if it doesn't exist
+- `GLOSSARY.md` → repo root
+- `docs/user-guide.md` → create `docs/` if it doesn't exist
 
 #### Custom output directory
 
