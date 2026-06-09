@@ -25,6 +25,7 @@ A Claude Code skill that generates and updates documentation from an existing co
 | `adr`        | `docs/adr/NNN-title.md`       | One Architecture Decision Record per major choice     |
 | `update`     | edits existing docs in place  | Incremental update scoped to the current feature branch |
 | `testing`    | `TESTING.md`                  | Test strategy, layers, mocking patterns, coverage, CI   |
+| `data`       | `docs/data.md`                | Data model, schema, lineage diagram, data quality       |
 
 ## Installation
 
@@ -84,9 +85,10 @@ code-to-docs/
 │   ├── deployment-guide.md    — deployment model detection and operator docs
 │   ├── adr-guide.md           — ADR format, decision detection, and rationale handling
 │   ├── update-guide.md        — git-diff-scoped incremental update workflow
-│   └── testing-guide.md       — test strategy, layers, mocking patterns, coverage, CI
+│   ├── testing-guide.md       — test strategy, layers, mocking patterns, coverage, CI
+│   └── data-guide.md          — data model, dbt lineage, schema, and data quality docs
 └── evals/
-    └── evals.json             — 13 test cases covering all subcommands and output options
+    └── evals.json             — 15 test cases covering all subcommands and output options
 ```
 
 ## Example output

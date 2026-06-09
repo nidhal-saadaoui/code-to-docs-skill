@@ -161,6 +161,32 @@
       ]
     },
     {
+      "id": "data-dbt-project",
+      "prompt": "Document the data model for this project.",
+      "context": "dbt project with sources.yml (Postgres orders and customers tables), models/staging/ (stg_orders.sql, stg_customers.sql), models/marts/ (orders_daily.sql, customer_ltv.sql), schema.yml files with column descriptions and not_null tests. Great Expectations suite for stg_orders.",
+      "assertions": [
+        "Output file is docs/data.md",
+        "Contains a Mermaid graph LR lineage diagram showing sources → staging → marts",
+        "Each model is documented with grain, materialization, source, and column table",
+        "Column descriptions come from schema.yml where present",
+        "Data quality section documents the Great Expectations suite for stg_orders",
+        "Does not document auto-generated surrogate keys as meaningful business fields",
+        "Does not fabricate column descriptions not present in schema.yml"
+      ]
+    },
+    {
+      "id": "arch-spark-pipeline",
+      "prompt": "Generate an architecture doc for this project.",
+      "context": "PySpark project with daily Airflow DAGs reading from Postgres and a REST API, writing Parquet to S3, then loading to Snowflake. No existing ARCHITECTURE.md.",
+      "assertions": [
+        "Uses graph LR (not graph TD) for the pipeline diagram",
+        "Diagram shows sources → Spark jobs → storage layers → data warehouse",
+        "Includes schedule information from the DAG definition",
+        "Data flow section describes a full end-to-end run",
+        "Does not use component-diagram style that would suit a web service"
+      ]
+    },
+    {
       "id": "testing-multilayer-with-coverage",
       "prompt": "Document the test strategy for this project.",
       "context": "Python FastAPI project with tests/unit/ and tests/integration/, conftest.py with a client fixture and a db fixture, testcontainers used in integration tests, pytest-cov configured with 80% threshold, and a GitHub Actions workflow that runs unit and integration tests as separate jobs.",

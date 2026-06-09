@@ -1,6 +1,6 @@
 ---
 name: code-to-docs
-description: Generate or update documentation from a codebase — README, architecture, API reference, onboarding guide, deployment guide, ADRs, or testing guide. Use whenever the user wants docs written, updated, or generated from code — including casual requests like "document this", "I need docs", "document my code", "this project has no README", "write some docs", "explain the architecture", "write ADRs", "document the test strategy", "help onboard a new dev", "I finished a feature, update the docs", or "what does this project do."
+description: Generate or update documentation from a codebase — README, architecture, API reference, onboarding guide, deployment guide, ADRs, testing guide, or data model docs. Use whenever the user wants docs written, updated, or generated from code — including casual requests like "document this", "I need docs", "document my code", "this project has no README", "write some docs", "explain the architecture", "write ADRs", "document the test strategy", "document the data model", "document the schema", "help onboard a new dev", "I finished a feature, update the docs", or "what does this project do."
 ---
 
 # Code-to-Docs
@@ -18,7 +18,8 @@ Generate specific documentation files from an existing codebase using only the t
 | `deployment` | `DEPLOYMENT.md` — infrastructure, env vars, deploy steps       |
 | `adr`        | `docs/adr/NNN-title.md` — one file per architectural decision  |
 | `update`     | Edits existing docs to reflect changes on the current branch   |
-| `testing`    | `TESTING.md` — test strategy, layers, patterns, mocking, CI   |
+| `testing`    | `TESTING.md` — test strategy, layers, patterns, mocking, CI    |
+| `data`       | `docs/data.md` — data model, schema, lineage, data quality      |
 
 If no subcommand is given, ask which doc type the user wants before proceeding.
 
@@ -54,6 +55,10 @@ Also note these cross-cutting signals — they affect all doc types:
 - `openapi.yml` / `swagger.yml` / `openapi.json` → existing API spec; read it for `api` docs
 - `.github/workflows/` → CI/CD present; reference in onboarding and deployment docs
 - `CHANGELOG.md` or `HISTORY.md` → project is mature; link from README
+- `dbt_project.yml` → dbt project; use `data` subcommand and pipeline patterns in `arch`
+- `dags/` / `from airflow` → Airflow orchestration; use pipeline diagram style in `arch`
+- `SparkSession` / `from pyspark` → Spark compute; note job structure in `arch`
+- `*.avsc` / `*.proto` → schema-first contracts; document in `data` subcommand
 
 ### Step 2 — Load the relevant guide
 
@@ -69,6 +74,7 @@ Read the reference file that matches the requested doc type:
 | `adr`        | `references/adr-guide.md`           |
 | `update`     | `references/update-guide.md`        |
 | `testing`    | `references/testing-guide.md`       |
+| `data`       | `references/data-guide.md`          |
 
 Each guide contains stack-specific section templates and quality rules. Read it before exploring the codebase.
 
@@ -151,6 +157,7 @@ If the user says "just document what you can see" or similar, skip the questions
 | `adr`        | Rationale behind surprising choices (see adr-guide.md for what counts as surprising)|
 | `update`     | Not applicable — scope is determined by `git diff`, not architectural ambiguity     |
 | `testing`    | Mocking boundary rationale, intentional coverage gaps, why a layer is structured as it is |
+| `data`       | Grain of a table, why a model is materialized a certain way, source system semantics       |
 
 ### Step 4 — Write the documentation
 
@@ -165,6 +172,7 @@ Default output locations:
 - `docs/adr/NNN-title.md` → create `docs/adr/` if it doesn't exist; one file per decision
 - `update` → edits existing files in place; does not create new doc files
 - `TESTING.md` → repo root
+- `docs/data.md` → create `docs/` if it doesn't exist
 
 #### Custom output directory
 

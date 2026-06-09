@@ -27,6 +27,46 @@ Omit any section you cannot fill from the code. Never fabricate.
 
 **Serverless / functions** — look for `handler` exports, `serverless.yml`, `functions/` directory, AWS Lambda or Vercel config. Draw triggers → functions → downstream services.
 
+**Data pipeline / big data** — look for these signals:
+
+| Signal | Framework | How to draw it |
+|---|---|---|
+| `dags/`, `from airflow import DAG` | Apache Airflow | Tasks as nodes, dependencies as edges; group by DAG |
+| `@flow`, `@task` from `prefect` | Prefect | Flows and tasks; note schedule and upstream dependencies |
+| `@asset`, `@job` from `dagster` | Dagster | Asset graph: sources → assets → downstream consumers |
+| `SparkSession`, `from pyspark` | Apache Spark | Pipeline stages: read → transform → write; note storage layers |
+| `dbt_project.yml` | dbt | Lineage layers: sources → staging → intermediate → marts |
+| `flink`, `DataStream`, `Table` | Apache Flink | Source → operator chain → sink |
+| `ray`, `@ray.remote` | Ray | Actors and tasks; note distributed boundaries |
+
+For pipeline architectures, prefer `graph LR` (left-to-right) over `graph TD` — it naturally represents data flowing through stages:
+
+```mermaid
+graph LR
+    subgraph Sources
+        DB["Postgres\n(orders)"]
+        API["Stripe API\n(payments)"]
+    end
+    subgraph Spark Jobs
+        Ingest["ingest_job\n(daily 02:00)"]
+        Transform["transform_job\n(daily 03:00)"]
+    end
+    subgraph Storage
+        Raw[("S3 raw/")]
+        Processed[("S3 processed/")]
+        DW[("Snowflake\norders_mart")]
+    end
+
+    DB -->|JDBC| Ingest
+    API -->|REST| Ingest
+    Ingest -->|Parquet| Raw
+    Raw --> Transform
+    Transform -->|Delta| Processed
+    Transform -->|COPY| DW
+```
+
+For the data flow section in a pipeline project, describe a full end-to-end run: what triggers the pipeline, what each stage reads and writes, and what the final consumer sees. Document schedules and SLAs if present in the orchestration config (cron expressions in DAG definitions, `schedule_interval`, etc.).
+
 ## Mermaid diagram rules
 
 Keep diagrams readable:

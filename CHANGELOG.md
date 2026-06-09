@@ -11,6 +11,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Added
 - `testing` subcommand — generates `TESTING.md` covering test strategy, layers, mocking boundary, test data patterns, coverage config, and CI behavior
+- `data` subcommand — generates `docs/data.md` for data models, dbt lineage, relational schemas (ORM/migrations), Avro/Protobuf contracts, and data quality checks
+- Pipeline / big data detection in `architecture-guide.md`: Airflow, Prefect, Dagster, Spark, dbt, Flink, Ray — with `graph LR` pipeline diagram guidance
+- Big data cross-cutting signals added to Step 1 (`dbt_project.yml`, `dags/`, `SparkSession`, `*.avsc`, `*.proto`)
 
 ---
 
