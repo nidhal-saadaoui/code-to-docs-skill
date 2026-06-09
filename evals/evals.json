@@ -161,6 +161,21 @@
       ]
     },
     {
+      "id": "testing-multilayer-with-coverage",
+      "prompt": "Document the test strategy for this project.",
+      "context": "Python FastAPI project with tests/unit/ and tests/integration/, conftest.py with a client fixture and a db fixture, testcontainers used in integration tests, pytest-cov configured with 80% threshold, and a GitHub Actions workflow that runs unit and integration tests as separate jobs.",
+      "assertions": [
+        "Output file is TESTING.md at the repo root",
+        "Documents both unit and integration layers with separate subsections",
+        "Mocking boundary is explicitly stated: unit tests mock HTTP and DB; integration tests use real testcontainers DB",
+        "Coverage threshold (80%) is documented with the command to run it",
+        "CI section documents the two separate GitHub Actions jobs",
+        "Writing a test section shows the actual conftest.py fixture pattern",
+        "Does not duplicate the single-test invocation commands already in ONBOARDING.md",
+        "Does not invent test layers or patterns not present in the code"
+      ]
+    },
+    {
       "id": "step35-cap",
       "prompt": "Document the architecture of this project.",
       "context": "Large codebase with 10+ architectural decisions that can't be inferred from code alone.",

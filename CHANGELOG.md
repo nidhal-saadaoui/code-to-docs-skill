@@ -7,6 +7,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [Unreleased]
+
+### Added
+- `testing` subcommand — generates `TESTING.md` covering test strategy, layers, mocking boundary, test data patterns, coverage config, and CI behavior
+
+---
+
 ## [1.0.0] — 2026-06-07
 
 Initial release.
