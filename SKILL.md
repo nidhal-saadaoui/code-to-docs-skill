@@ -1,6 +1,6 @@
 ---
 name: code-to-docs
-description: Generate or update documentation from a codebase — README, architecture overview, API reference, onboarding guide, deployment guide, ADRs, or incremental updates after a feature branch. Use this skill when the user asks to write, generate, or update docs from existing code, even if they say "document this", "write a README", "explain the architecture", "help onboard someone", "what does this project do", "write ADRs for this project", or "update the docs for my new feature."
+description: Generate or update documentation from a codebase — README, architecture, API reference, onboarding guide, deployment guide, or ADRs. Use whenever the user wants docs written, updated, or generated from code — including casual requests like "document this", "I need docs", "document my code", "this project has no README", "write some docs", "explain the architecture", "write ADRs", "help onboard a new dev", "I finished a feature, update the docs", or "what does this project do."
 ---
 
 # Code-to-Docs
